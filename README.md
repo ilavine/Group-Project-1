@@ -19,3 +19,5 @@
 	
 	WHEN I enter a trip date and location
 	THEN I am shown a map of what constellations and planets should be visible.
+	
+# Features
