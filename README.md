@@ -1,15 +1,21 @@
 # Group-Project-1
 
-# Four main areas:  
-	-Front End aplication for search and display of the results of things to do / interests to display on google map and street view
-	
-	-Integrate the search request into google search to pull up the things in a given area
-	
-	-Display the things on a google map with "grabable artifacts"
-	
-	-Work on pulling up the street view from the selected grabable artifcat
+# Hiking application
 
 # User Story
-
+	As a TOURIST I want to be able to find hiking locations based on my unique search criteria so that i can be an informed hiker for my desired trip.
 
 # Acceptance Criteria
+	GIVEN a top level search page for hiking information about a given area:
+	
+	WHEN I type in search criteria for a trail, 
+	THEN I am given a search result of in tabular form of the hiking trails meeting the search criteria
+	
+	WHEN I select on a hiking trail
+	THEN i am given information about trail such as length, challenge, etc.
+
+	WHEN I select a hiking trail, 
+	THEN i am shown a map with camping areas nearby overlayed with the 2020 dark sky map
+	
+	WHEN I enter a trip date and location
+	THEN I am shown a map of what constellations and planets should be visible.
