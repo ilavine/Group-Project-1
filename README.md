@@ -1,5 +1,6 @@
 # Group-Project-1
 
+Following the group collaboration instructions.
 # Hiking application
 
 # User Story
