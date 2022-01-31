@@ -1,5 +1,7 @@
 # Group-Project-1
 
+Yulia's change!
+
 # Hiking application
 
 # User Story
