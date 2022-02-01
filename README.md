@@ -1,4 +1,7 @@
 # Group-Project-1
+Marissa attempt 1
+
+Yulia's change!
 
 Following the group collaboration instructions.
 # Hiking application
@@ -22,3 +25,4 @@ Following the group collaboration instructions.
 	THEN I am shown a map of what constellations and planets should be visible.
 	
 # Features
+Added features
