@@ -24,3 +24,4 @@ Yulia's change!
 	THEN I am shown a map of what constellations and planets should be visible.
 	
 # Features
+Added features
