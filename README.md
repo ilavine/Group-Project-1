@@ -3,6 +3,7 @@ Marissa attempt 1
 
 Yulia's change!
 
+Following the group collaboration instructions.
 # Hiking application
 
 # User Story
