@@ -3,6 +3,7 @@ Marissa attempt 1
 
 Yulia's change!
 
+Following the group collaboration instructions.
 # Hiking application
 
 # User Story
@@ -24,3 +25,20 @@ Yulia's change!
 	THEN I am shown a map of what constellations and planets should be visible.
 	
 # Features
+Added features
+
+<!-- fetch request function -->
+<!-- var requestUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/output?parameters";
+
+function getApi() {
+    fetch(requestUrl)
+        .then(function(response) {
+            console.log(response);
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+        })
+} -->
+
+<!-- Please work -->
