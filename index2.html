@@ -11,9 +11,8 @@
     <!-- Adding / Updating to jQeury UI v1.13.0 -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://fontawesome.com/v4.7/get-started/">
     <script src="https://kit.fontawesome.com/f153357c8e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -30,55 +29,62 @@
     <main>
 
         <div class="row callout">
-            <div class="medium-7 large-6 columns">
-                    <p class="text_center">Welcome To Trail Finder. Created by hiking enthusiasts to help you find:</p>
-                    <ul>
-                        <li>Trails in your area</li>
-                        <li>Trail Information and Reviews</li>
-                        <li>Historical and Current WX Forecsasts For Your Trip Time</li>
-                        <li>A night sky map to show what you might see while overnighting on your trip.</li>
-                    </ul>
+            <div class="medium-6 large-6 columns">
+                <p class="text_center">Welcome To Trail Finder. Created by hiking enthusiasts to help you find:</p>
+                <ul>
+                    <li>Trails in your area</li>
+                    <li>Trail Information and Reviews</li>
+                    <li>Historical and Current WX Forecsasts For Your Trip Time</li>
+                    <li>A night sky map to show what you might see while overnighting on your trip.</li>
+                </ul>
             </div>
+
+            <div class="show-for-large medium-3 large-3 columns">
+                <img src="assets/images/Starsinthesky.jpg" alt="picture of space">
+            </div>
+
+            <div class="show-for-large medium-3 large-3 columns">
+                <img src="assets/images/hike_pic.jpg" alt="Steve's Backyard">
+            </div>
+
         </div>
 
+        <div class="rows">
+            <div class="large-3 medium-3 columns" id="search_history">
+                <button class='button' type="button" id="search_trails_btn">Search For A New Trail <i
+                        class="fas fa-hiking"></i></button>
 
-        <div class="grid-x grid-padding-x">
-            <div class="large-4 medium-4 cell">
-                <h5>Search:<i class="fas fa-hiking"></i></h5>
-                <form>
-                    <div class="large-12 medium-12 cell">
-                        <label>Search By</label>
-                        <input type="radio" value="location" id="location"><label for="location">Location
-                        </label>
-                        <input type="radio" value="trail_name" id="trail_name"><label for="trail_name">Trail name</label>
-                    </div>
-                    <div class="grid-x grid-padding-x">
-                        <div class="large-12 cell">
-                            <label>Trails< / Location/label>
-                            <input type="text" id="location_name" placeholder="What Trail Are You Looking For?" />
-                        </div>
-                    </div>
+                        <br>
 
-                    <div class="grid-x grid-padding-x">
-                        <div class="large-12 cell">
-                            <label>Weather Type</label>
-                            <select id="weather-forecast">
-                                <option value="historical">Historical WX</option>
-                                <option value="current_forecast">5 Day Forecast</option>
-                            </select>
-                        </div>
-                    </div>
+                <button class='button' type="button" id="clear_hist_btn">Clear Search History</button>
+                <h5>Search History</h5>
+                <span>Areas</span>
+                <div class="columns" id="location-search-history">
+                    <br>
+                    <button class="button" type="submit">Amherst, MA</button>
+                    <button class='button' type="submit">Killington, VT</button>
+                </div>
+                <br><br><br>
+                <span>Trails</span>
+                <div class="columns" id="trail-search-history">
+                    <br>
+                    <button class="button" type="submit">Boston Trail</button>
+                    <button class='button' type="submit">Concord Trail</button>
+                </div>
 
-                </form>
             </div>
 
-            <div class="large-8 medium-8 cell">
+            <div class="large-8 medium-8 columns">
                 <h5>Search Results</h5>
                 <div class="callout" id="trailresults">
                     <img src="assets/images/sample_map.jpg" alt="">
 
                     <div class="callout" id="weathercards">
-
+                            <div class="card future_wx" id="day-0"></div>
+                            <div class="card future_wx" id="day-1"></div>
+                            <div class="card future_wx" id="day-2"></div>
+                            <div class="card future_wx" id="day-3"></div>
+                            <div class="card future_wx" id="day-4"></div>
                     </div>
                 </div>
                 <div class="callout" id="starchart">
@@ -89,12 +95,34 @@
         </div>
     </main>
 
+    <div id="dialog-form" title="Trail Search">
+        <form>
+            <fieldset>
+                <label for="trailname">Trail Name
+                    <br>
+                    <input type="text" name="trailname" id="trailname" value="Trail Name"
+                        class="text ui-widget-content ui-corner-all">
+                </label>
+                <br>
+                <label for="location">Location
+                    <br>
+                    <input type="text" name="location" id="location" value="City, State"
+                        class="text ui-widget-content ui-corner-all">
+                </label>
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+
     <footer>
         Made By Awesome Group-4.
     </footer>
 
 
     <script src="js/vendor/jquery.js"></script>
+    <!-- updated to jQuery UI v 1.13 -->
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
     <script src="js/app.js"></script>

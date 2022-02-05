@@ -29,7 +29,7 @@
     <main>
 
         <div class="row callout">
-            <div class="medium-7 large-6 columns">
+            <div class="medium-6 large-6 columns">
                 <p class="text_center">Welcome To Trail Finder. Created by hiking enthusiasts to help you find:</p>
                 <ul>
                     <li>Trails in your area</li>
@@ -39,38 +39,24 @@
                 </ul>
             </div>
 
-            <div class="show-for-large large-3 columns">
+            <div class="show-for-large medium-3 large-3 columns">
                 <img src="assets/images/Starsinthesky.jpg" alt="picture of space">
             </div>
 
-            <div class="medium-5 large-3 columns">
-                <div class="callout secondary">
-                    <form>
-                        <div class="row">
-                            <div class="small-12 columns">
-                                <label>Search By:</label>
-                                <div class="large-12 medium-12 cell">
-                                    <input type="radio" value="location" id="location"><label for="location">Location
-                                    </label>
-                                    <input type="radio" value="trail_name" id="trail_name"><label for="trail_name">Trail
-                                        name</label>
-                                    <button type="submit" class="button" id="search_now_btn">Search Now!</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
+            <div class="show-for-large medium-3 large-3 columns">
+                <img src="assets/images/hike_pic.jpg" alt="Steve's Backyard">
             </div>
         </div>
-
-
+        
+        
         <div class="rows">
             <div class="large-3 medium-3 columns" id="search_history">
-                <h5>Search History<i class="fas fa-hiking"></i></h5>
-                <div class="columns" id="search-history"></div>
-
+                <button class='button' type="button" id="search_trails_btn">Search For A New Trail <i class="fas fa-hiking"></i></button>
+                <h4>Search History</h4>
+                <div class="columns" id="search-history">
+                    <button class="button" type="submit">Boston Trail</button>
+                    <button class='button' type="submit">Concord Trail</button>
+                </div>
             </div>
 
             <div class="large-8 medium-8 columns">
@@ -89,6 +75,27 @@
             </div>
         </div>
     </main>
+
+
+    <div id="dialog-form" title="Trail Search">      
+        <form>
+            <fieldset>
+                <label for="name">Trail Name
+                    <br>
+                    <input type="text" name="trailname" id="trailname" value="Trail Name"
+                        class="text ui-widget-content ui-corner-all">
+                </label>
+                    <br>
+                <label for="email">Location
+                    <br>
+                <input type="text" name="location" id="email" value="Concorde, NH"
+                    class="text ui-widget-content ui-corner-all">
+                </label>
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+      </div>
 
     <!-- jQuery 3.6.0 non-minimized -->
     <script src="js/vendor/jquery.js"></script>
