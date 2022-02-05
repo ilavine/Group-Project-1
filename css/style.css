@@ -7,3 +7,11 @@ body {
 .text_center{
   text-align: center;
 }
+
+.trail-search {
+  background-color: tan;
+}
+
+.fx_weather {
+  background-color: antiquewhite;
+}

@@ -1,4 +1,3 @@
-
 //variables required
 var search_history = $('#search-history'); // looks for the div id search history.
 var loc_search_history_array = [];
@@ -8,15 +7,6 @@ var search_history_by_trail = $('#trail-search-history');
 var wx_cards = ('#weathercards');
 const api_key = 'a927e5d1a4f226a1efed57b2a089721b';
 var clear_btn = $('#clear_hist_btn');
-
-$(document).foundation()
-const hash = btoa(`${applicationId}:${applicationSecret}`);
-// Application ID:
-// 570c18ee-252e-4e18-a721-e8624c977166
-
-// Application Secret:
-// 8a10ea4475bc233d87c49f1e0092f9f848b4c8283f95afc5961bd6d2b8123f4b56755ef5498ce5c739bc7652fba958b32b9e3048e673f9f405538b3d0473e5bfde67db26603d4e83558cc306b9829eab2eca0177bebb028d99163d6719008cc734c11e8b2e7cdbdd6e8ba5984c4d314e
-//curl --location --request GET 'https://api.astronomyapi.com/api/v2/bodies' \ --header 'Authorization: Basic <hash>' \\
 
 clear_btn.on('click', function(){
     localStorage.clear();
@@ -191,7 +181,6 @@ function buildWeatherCards(t_loc) {
             }
             return response.json();
         })
-  
         .then(function (data) {
             latitude = data[0].lat;
             longitude = data[0].lon;
@@ -247,3 +236,4 @@ function buildWeatherCards(t_loc) {
 }
 
 initializePage();
+

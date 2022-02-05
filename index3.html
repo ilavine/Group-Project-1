@@ -11,8 +11,8 @@
     <!-- Adding / Updating to jQeury UI v1.13.0 -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="css/app.css">
-    <script src="https://kit.fontawesome.com/f153357c8e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/f153357c8e.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -46,32 +46,17 @@
             <div class="show-for-large medium-3 large-3 columns">
                 <img src="assets/images/hike_pic.jpg" alt="Steve's Backyard">
             </div>
-
         </div>
-
+        
+        
         <div class="rows">
             <div class="large-3 medium-3 columns" id="search_history">
-                <button class='button' type="button" id="search_trails_btn">Search For A New Trail <i
-                        class="fas fa-hiking"></i></button>
-
-                        <br>
-
-                <button class='button' type="button" id="clear_hist_btn">Clear Search History</button>
-                <h5>Search History</h5>
-                <span>Areas</span>
-                <div class="columns" id="location-search-history">
-                    <br>
-                    <button class="button" type="submit">Amherst, MA</button>
-                    <button class='button' type="submit">Killington, VT</button>
-                </div>
-                <br><br><br>
-                <span>Trails</span>
-                <div class="columns" id="trail-search-history">
-                    <br>
+                <button class='button' type="button" id="search_trails_btn">Search For A New Trail <i class="fas fa-hiking"></i></button>
+                <h4>Search History</h4>
+                <div class="columns" id="search-history">
                     <button class="button" type="submit">Boston Trail</button>
                     <button class='button' type="submit">Concord Trail</button>
                 </div>
-
             </div>
 
             <div class="large-8 medium-8 columns">
@@ -80,11 +65,7 @@
                     <img src="assets/images/sample_map.jpg" alt="">
 
                     <div class="callout" id="weathercards">
-                            <div class="card future_wx" id="day-0"></div>
-                            <div class="card future_wx" id="day-1"></div>
-                            <div class="card future_wx" id="day-2"></div>
-                            <div class="card future_wx" id="day-3"></div>
-                            <div class="card future_wx" id="day-4"></div>
+
                     </div>
                 </div>
                 <div class="callout" id="starchart">
@@ -95,37 +76,35 @@
         </div>
     </main>
 
-    <div id="dialog-form" title="Trail Search">
+
+    <div id="dialog-form" title="Trail Search">      
         <form>
             <fieldset>
-                <label for="trailname">Trail Name
+                <label for="name">Trail Name
                     <br>
                     <input type="text" name="trailname" id="trailname" value="Trail Name"
                         class="text ui-widget-content ui-corner-all">
                 </label>
-                <br>
-                <label for="location">Location
                     <br>
-                    <input type="text" name="location" id="location" value="City, State"
-                        class="text ui-widget-content ui-corner-all">
+                <label for="email">Location
+                    <br>
+                <input type="text" name="location" id="email" value="Concorde, NH"
+                    class="text ui-widget-content ui-corner-all">
                 </label>
                 <!-- Allow form submission with keyboard without duplicating the dialog button -->
                 <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
             </fieldset>
         </form>
-    </div>
+      </div>
 
-    <footer>
-        Made By Awesome Group-4.
-    </footer>
-
-
+    <!-- jQuery 3.6.0 non-minimized -->
     <script src="js/vendor/jquery.js"></script>
     <!-- updated to jQuery UI v 1.13 -->
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/stevescript.js"></script>
 </body>
 
 </html>
