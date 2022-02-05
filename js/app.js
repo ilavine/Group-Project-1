@@ -23,22 +23,24 @@ $(function () {
 
     function searchTrailName() {
         var t_name;
+        var t_location;
+
         t_name = $('#trailname').val();
         t_location = $("#location").val();
 
-        alert("Trail name to be searched for is: " + t_name);
-        alert("Location to be searched for is: " + t_location);
+        // alert("Trail name to be searched for is: " + t_name);
+        // alert("Location to be searched for is: " + t_location);
         if (t_name == 'Trail Name' || t_name == null) {
             t_name = 'NA';
         }
 
-        alert("Trail name to be searched for is: " + t_name);
+        // alert("Trail name to be searched for is: " + t_name);
 
         trail_dialog.dialog("close");
         if (t_location != 'City, State') {
             let format_check = t_location.search(",");
             if (format_check === -1) {
-                alert('The search location must be in City, State format.  Please Try again.');
+                // alert('The search location must be in City, State format.  Please Try again.');
                 return;
             }
 
@@ -47,14 +49,14 @@ $(function () {
                 loc_array[i] = loc_array[i].trimStart();
             }
             t_location = loc_array.join();
-            console.log(t_location);
+            // console.log(t_location);
         }
         getWeather(t_name, t_location);
     }
 
     trail_dialog = $("#dialog-form").dialog({
         autoOpen: false,
-        height: 200,
+        height: 400,
         width: 350,
         modal: true,
         buttons: {
@@ -79,8 +81,6 @@ $(function () {
 })
 
 function getWeather(trail_name, t_loc) {
-    //add a searched button to the search history buttons list. 
-    alert("i clicked on the damn search button");
     //first add the city to the search_history)array.  The city always becomes the first in the array, the array is limited to 10 cities, so it
     //pops the last element in the array if the array length ===10.
 
@@ -90,7 +90,7 @@ function getWeather(trail_name, t_loc) {
         .split(' ')
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
         .join(' ');
-    alert(t_loc);
+
     let poss_check = false;
 
     //first check to see if the location is already in the array, if it is, still pull up the search, but dont add it to the array.
@@ -118,9 +118,6 @@ function getWeather(trail_name, t_loc) {
         localStorage.setItem('locationsearchhistoryarray', JSON.stringify(loc_search_history_array));
     }
 
-    //now we build the buttons.  First we need to clear the search history area before we do the append. 
-    search_history_by_location.empty();
-
     //now cycle through the search_history_array and create a research button for each prior searched city name.
     //right now trail_search_hisotry_array is null and just a place holder, we still need to see if the API lets you search by Trail name.
     buildHistoryCards(loc_search_history_array, trail_search_history_array);
@@ -131,11 +128,14 @@ function getWeather(trail_name, t_loc) {
 
 function initializePage() {
     //initializes the page showing past search history
+    $('#trailname').val("");
+    $('#location').val("");
     let temp_loc_search_array = JSON.parse(localStorage.getItem('locationsearchhistoryarray'));
     let temp_trail_search_array = JSON.parse(localStorage.getItem('trailsearchhistoryarray'));
     loc_search_history_array = temp_loc_search_array || [];
     trail_search_history_array = temp_trail_search_array || [];
-    //rebuild the search history buttons
+
+    //rebuild the search history cards
     buildHistoryCards(loc_search_history_array, trail_search_history_array);
 }
 
@@ -143,7 +143,7 @@ function buildHistoryCards(loc_hist_array, trail_hist_array) {
     search_history_by_location.empty();
     search_history_by_trail.empty();
     for (i = 0; i < loc_hist_array.length; i++) {
-        search_history_by_location.append('<button type="submit" class="button" id="' + loc_hist_array[i] + '">' + loc_hist_array[i] + '</button>');
+        search_history_by_location.append('<button type="submit" class="button expanded" id="' + loc_hist_array[i] + '">' + loc_hist_array[i] + '</button>');
         //research the wx from prior searches.
         // $('#' + search_history_by_location[i]).on('click', function (event) {
         //     event.preventDefault();
@@ -166,9 +166,11 @@ function buildHistoryCards(loc_hist_array, trail_hist_array) {
 function buildWeatherCards(t_loc) {
     //clear out old cards and info
     // wx_cards.empty();
+    var latitude;
+    var longitude;
 
     debugger;
-    var geo_url = 'https://api.openweathermap.org/geo/1.0/direct?q=' + t_loc[0] + '&units=imperial&appid=' + api_key;
+    var geo_url = 'https://api.openweathermap.org/geo/1.0/direct?q=' + t_loc[0] + ',US&appid=' + api_key;
     console.log(geo_url);
     fetch(geo_url, {
         cache: 'reload',
@@ -184,8 +186,6 @@ function buildWeatherCards(t_loc) {
         .then(function (data) {
             latitude = data[0].lat;
             longitude = data[0].lon;
-            console.log(latitude);
-            console.log(longitude);
             var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=imperial&appid=' + api_key;
             console.log(url);
             //executes a fetch from openweathermap.org.  API key is sdseney508 key and is stored as a const
@@ -205,10 +205,7 @@ function buildWeatherCards(t_loc) {
                         return;
                     }
                     //build current wx card title
-                    console.log(data.current.uvi);
-                    city_curr_title.append('<h3 id="' + c_name + '">' + c_name + '  (' + Date(data.current.dt)
-                        + ')<img src="http://openweathermap.org/img/wn/' + data.current.weather[0].icon
-                        + '@2x.png" alt="WX Icon" class="weather-icon"></h3>');
+  
                     //build a for loop to extract the data for the current day (list item 0) and the next 5 days, list 1-5.
                     for (i = 0; i < 5; i++) {
                         var wx_date = Date(data.daily[i].dt);
