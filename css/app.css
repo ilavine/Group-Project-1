@@ -1,0 +1,12 @@
+#trailresults {
+    height: 600px;
+    /* The height is 400 pixels */
+    width: 84%;
+    /* The width is the width of the web page */
+    border: 2;
+    /* The border styling */
+}
+
+#search-location {
+    width: 37%;
+}
