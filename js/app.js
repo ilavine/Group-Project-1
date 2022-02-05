@@ -246,4 +246,55 @@ function buildWeatherCards(t_loc) {
         });
 }
 
+// Initialize and add the map
+function initMap() {
+    // The location of Concord, NH
+    const concord = { lat: 43.1939, lng: -71.5724 };
+    // The map, centered at Concord, NH
+    const map = new google.maps.Map(document.getElementById("trailresults"), {
+      zoom: 10,
+      center: concord,
+    });
+    // The marker, positioned at Concord, NH
+    const marker = new google.maps.Marker({
+      position: concord,
+      map: map,
+    });
+    var card = document.getElementById('pac-card');
+		var input = document.getElementById('pac-input');
+		var infowindowContent = document.getElementById('infowindow-content');
+
+		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		var infowindow = new google.maps.InfoWindow();
+		infowindow.setContent(infowindowContent);
+
+		var marker1 = new google.maps.Marker({
+			map : map
+		});
+
+		autocomplete.addListener('place_changed',function() {
+			document.getElementById("location-error").style.display = 'none';
+			infowindow.close();
+			marker1.setVisible(false);
+			var place = autocomplete.getPlace();
+			if (!place.geometry) {
+				document.getElementById("location-error").style.display = 'inline-block';
+				document.getElementById("location-error").innerHTML = "Cannot Locate '" + input.value + "' on map";
+				return;
+			}
+
+			map.fitBounds(place.geometry.viewport);
+			marker1.setPosition(place.geometry.location);
+			marker1.setVisible(true);
+
+			infowindowContent.children['place-icon'].src = place.icon;
+			infowindowContent.children['place-name'].textContent = place.name;
+			infowindowContent.children['place-address'].textContent = input.value;
+			infowindow.open(map, marker1);
+		});
+	}
+
+initMap();
 initializePage();
