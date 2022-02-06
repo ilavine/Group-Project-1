@@ -41,12 +41,14 @@
                 </div>
 
                 <div class="show-for-medium medium-3 large-3 columns">
-                    <img src="assets/images/hike_pic2.jpg" class="heading-pics" alt="Hiking Picture Showing a Trail Marker">
+                    <img src="assets/images/hike_pic2.jpg" class="heading-pics"
+                        alt="Hiking Picture Showing a Trail Marker">
                 </div>
 
                 <div class="show-for-large medium-3 large-3 columns">
                     <!-- make show medium -->
-                    <img src="assets/images/Starsinthesky.jpg" class="heading-pics" alt="Picture of the Star In The Sky">
+                    <img src="assets/images/Starsinthesky.jpg" class="heading-pics"
+                        alt="Picture of the Star In The Sky">
                 </div>
             </div>
         </div>
@@ -54,17 +56,12 @@
         <div class="row">
             <div class="large-3 medium-3 columns" id="search_history">
                 <div class="columns">
-                    <button type="button" align class="success button">Search For A New Trail <i class="fas fa-hiking"></i></button>
-                    <div id="search-location">
-                        <input id="pac-input" type="text" placeholder="Search Location">
-                        <div id="location-error"></div>
-
-                    </div>
-                    
+                    <button type="button" align class="success button" id="search_trails_btn">Search For A New Trail <i
+                            class="fas fa-hiking"></i></button>
                     <br>
                     <button class='button' type="button" id="clear_hist_btn">Clear Search History</button>
                 </div>
-                
+
                 <h5 class="text_center bottom-border">Search History</h5>
                 <p class="text_center">Areas</p>
                 <div class="columns" id="location-search-history">
@@ -81,10 +78,10 @@
             </div>
 
             <div class="large-8 medium-8 columns">
-                <h5>Search Results</h5>
+                <h5 class="text_center">Search Results</h5>
                 <div class="callout" id="trailresults">
                     <!-- Place google maps search results here -->
-                    <img src="assets/images/sample_map.jpg" alt="">
+                    <div id="pac-card"></div>
                     <div class="callout">
                         <div class="row" id="weathercards">
                             <!-- make the cards appear in rows -->
@@ -111,14 +108,18 @@
                 <!-- this is where we need to ask for the inputs to our APIs -->
                 <label for="trailname">Trail Name
                     <br>
-                    <input type="text" name="trailname" id="trailname" placeholder="Trail Name"
-                        class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="trailname" id="trailname" placeholder="Trail Name" class="text ui-widget-content ui-corner-all">
                 </label>
                 <br>
                 <label for="location">Location
                     <br>
-                    <input type="text" name="location" id="location" placeholder="City, State"
-                        class="text ui-widget-content ui-corner-all">
+                    <!-- <input type="text" name="location" id="location" placeholder="City, State"
+                        class="text ui-widget-content ui-corner-all"> -->
+         
+                    <input type="text" name="location" id="location" placeholder="City, State" class="text ui-widget-content ui-corner-all" >
+                        <div id="location-error"></div>
+
+                    
                 </label>
                 <!-- Allow form submission with keyboard without duplicating the dialog button -->
                 <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -137,8 +138,8 @@
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
     <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWwWIwnI_m9PhEKgSKFUU5tOC78JfplUk&libraries=places&callback=initMap"
-    async defer></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWwWIwnI_m9PhEKgSKFUU5tOC78JfplUk&libraries=places&callback=initMap"
+        async defer></script>
     <script src="js/app.js"></script>
 </body>
 
