@@ -67,7 +67,7 @@ $(function () {
                 loc_array[i] = loc_array[i].trimStart();
             }
             t_location = loc_array.join();
-            // console.log(t_location);
+            console.log('this is t_loc in the search function: ' + t_location);
         }
         getWeather(t_name, t_location);
         //now cycle through the search_history_array and create a research button for each prior searched city name.
@@ -139,11 +139,12 @@ function getWeather(trail_name, t_loc) {
     }
 
     //call the build weather card but only with the city name entered in the search box and not the entire search_history_array.
-    buildWeatherCards(loc_search_history_array);
+    buildWeatherCards(t_loc);
 }
 
 function initializePage() {
     //initializes the page showing past search history
+    // debugger;
     $('#trailname').val("");
     $('#location').val("");
     let temp_loc_search_array = JSON.parse(localStorage.getItem('locationsearchhistoryarray'));
@@ -158,26 +159,26 @@ function initializePage() {
 function buildHistoryCards(loc_hist_array, trail_hist_array) {
     search_history_by_location.empty();
     search_history_by_trail.empty();
-    debugger;
+    // debugger;
     for (i = 0; i < loc_hist_array.length; i++) {
-        search_history_by_location.append('<button type="submit" class="button expanded" id="' + loc_hist_array[i] + '">' + loc_hist_array[i] + '</button>');
+        search_history_by_location.append('<button type="submit" class="button expanded historybutton" id="' + loc_hist_array[i] + '">' + loc_hist_array[i] + '</button>');
         //research the wx from prior searches.
-        $('#' + loc_hist_array[i]).on('click', function (event) {
-            event.preventDefault();
-            let t_loc = this.id;
-            buildWeatherCards(t_loc);
-        });    
+        // $('#' + loc_hist_array[i]).on('click', function (event) {
+        //     event.preventDefault();
+        //     let t_loc = this.id;
+        //     buildWeatherCards(t_loc);
+        // });    
     }
     //only if API supports a lat long for trail location to build wx off trail name
-    for (i = 0; i < trail_hist_array.length; i++) {
-        search_history_by_trail.append('<button type="submit" class="button" id="' + trail_hist_array[i] + '">' + trail_hist_array[i] + '</button>');
-        //research the wx from prior searches.
-        $('body').on('click', '#' + trail_hist_array[i], function (event) {
-            event.preventDefault();
-            let trail_loc = this.id;
-            buildWeatherCards(trail_loc);
-        });    
-    }
+    // for (i = 0; i < trail_hist_array.length; i++) {
+    //     search_history_by_trail.append('<button type="submit" class="button" id="' + trail_hist_array[i] + '">' + trail_hist_array[i] + '</button>');
+    //     //research the wx from prior searches.
+    //     $('body').on('click', '#' + trail_hist_array[i], function (event) {
+    //         event.preventDefault();
+    //         let trail_loc = this.id;
+    //         buildWeatherCards(trail_loc);
+    //     });    
+    // }
 }
 
 function buildWeatherCards(t_loc) {
@@ -186,7 +187,7 @@ function buildWeatherCards(t_loc) {
     var latitude;
     var longitude;
 
-    var geo_url = 'https://api.openweathermap.org/geo/1.0/direct?q=' + t_loc[0] + ',US&appid=' + api_key;
+    var geo_url = 'https://api.openweathermap.org/geo/1.0/direct?q=' + t_loc + ',US&appid=' + api_key;
     console.log(geo_url);
     fetch(geo_url, {
         cache: 'reload',
@@ -204,7 +205,7 @@ function buildWeatherCards(t_loc) {
             latitude = data[0].lat;
             longitude = data[0].lon;
             var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=imperial&appid=' + api_key;
-            console.log(url);
+            console.log('one call url: ' +url);
             //executes a fetch from openweathermap.org.  API key is sdseney508 key and is stored as a const
             fetch(url, {
                 cache: 'reload',
@@ -222,10 +223,14 @@ function buildWeatherCards(t_loc) {
                         return;
                     }
                     //build current wx card title
-
+                    console.log(data);
                     //build a for loop to extract the data for the current day (list item 0) and the next 5 days, list 1-5.
                     for (i = 0; i < 5; i++) {
-                        var wx_date = Date(data.daily[i].dt);
+                        //change to jday
+
+                        let wx_numb = parseFloat(data.daily[i].dt*1000);
+                        var wx_date = dayjs(wx_numb).format('MMMM D, YYYY')
+                       
                         var temp_hi = data.daily[i].temp.max;
                         var temp_low = data.daily[i].temp.min;
                         var winds = data.daily[i].wind_speed;
@@ -292,12 +297,23 @@ function initMap() {
         marker1.setPosition(place.geometry.location);
         marker1.setVisible(true);
 
-        infowindowContent.children['place-icon'].src = place.icon;
-        infowindowContent.children['place-name'].textContent = place.name;
-        infowindowContent.children['place-address'].textContent = input.value;
-        infowindow.open(map, marker1);
+        //inserting into nested function to fix the call
+        // var infowindowContent = document.getElementById('infowindow-content');
+        // console.log(infowindowContent.children)
+        // infowindowContent.children['place-icon'].src = place.icon;
+        // infowindowContent.children['place-name'].textContent = place.name;
+        // infowindowContent.children['place-address'].textContent = input.value;
+        // infowindow.open(map, marker1);
     });
 }
 
 initializePage();
 // initMap();
+
+$('body').on('click', '.historybutton', function (event) {
+    event.preventDefault();
+    console.log('i hate this');
+    let trail_loc = this.id;
+    console.log(trail_loc);
+    buildWeatherCards(trail_loc);
+});    
