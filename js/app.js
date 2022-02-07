@@ -297,9 +297,11 @@ function initMap() {
         marker1.setPosition(place.geometry.location);
         marker1.setVisible(true);
 
+
         //inserting into nested function to fix the call
         // var infowindowContent = document.getElementById('infowindow-content');
         // console.log(infowindowContent.children)
+
         // infowindowContent.children['place-icon'].src = place.icon;
         // infowindowContent.children['place-name'].textContent = place.name;
         // infowindowContent.children['place-address'].textContent = input.value;
