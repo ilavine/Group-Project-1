@@ -28,70 +28,73 @@
 
     <main>
 
-        <div class="row callout">
-            <div class="medium-6 large-6 columns">
-                <p class="text_center">Welcome To Trail Finder. Created by hiking enthusiasts to help you find:</p>
-                <ul>
-                    <li>Trails in your area</li>
-                    <li>Trail Information and Reviews</li>
-                    <li>Historical and Current WX Forecsasts For Your Trip Time</li>
-                    <li>A night sky map to show what you might see while overnighting on your trip.</li>
-                </ul>
-            </div>
+        <div class="callout">
+            <div class="row">
+                <div class="medium-6 large-6 columns">
+                    <p class="text_center">Welcome To Trail Finder. Created by hiking enthusiasts to help you find:</p>
+                    <ul>
+                        <li>Trails in the United States</li>
+                        <li>Trail Information and Reviews</li>
+                        <li>Historical and Current WX Forecsasts For Your Trip Time</li>
+                        <li>A night sky map to show what you might see while overnighting on your trip.</li>
+                    </ul>
+                </div>
 
-            <div class="show-for-large medium-3 large-3 columns">
-                <img src="assets/images/Starsinthesky.jpg" alt="picture of space">
-            </div>
+                <div class="show-for-medium medium-3 large-3 columns">
+                    <img src="assets/images/hike_pic2.jpg" class="heading-pics"
+                        alt="Hiking Picture Showing a Trail Marker">
+                </div>
 
-            <div class="show-for-large medium-3 large-3 columns">
-                <img src="assets/images/hike_pic.jpg" alt="Steve's Backyard">
+                <div class="show-for-large medium-3 large-3 columns">
+                    <!-- make show medium -->
+                    <img src="assets/images/Starsinthesky.jpg" class="heading-pics"
+                        alt="Picture of the Star In The Sky">
+                </div>
             </div>
-
         </div>
 
-        <div class="rows">
+        <div class="row">
             <div class="large-3 medium-3 columns" id="search_history">
-                <button class='button' type="button" id="search_trails_btn">Search For A New Trail <i
-                        class="fas fa-hiking"></i></button> 
-                      <!-- Search input stuff -->
-                        <div id="search-location">
-                            <input id="pac-input" type="text" placeholder="Search Location">
-                            <div id="location-error"></div>
+                <div class="columns">
+                    <button type="button" align class="success button" id="search_trails_btn">Search For A New Trail <i
+                            class="fas fa-hiking"></i></button>
+                    <br>
+                    <button class='button' type="button" id="clear_hist_btn">Clear Search History</button>
+                </div>
 
-                        </div>
-                        <br>
-
-                <button class='button' type="button" id="clear_hist_btn">Clear Search History</button>
-                <h5>Search History</h5>
-                <span>Areas</span>
+                <h5 class="text_center bottom-border">Search History</h5>
+                <p class="text_center">Areas</p>
                 <div class="columns" id="location-search-history">
                     <br>
-                    <button class="button" type="submit">Amherst, MA</button>
-                    <button class='button' type="submit">Killington, VT</button>
+                    <!-- make buttons full width -->
                 </div>
                 <br><br><br>
-                <span>Trails</span>
+                <p class="text_center">Trails</p>
                 <div class="columns" id="trail-search-history">
                     <br>
                     <button class="button" type="submit">Boston Trail</button>
                     <button class='button' type="submit">Concord Trail</button>
                 </div>
-
             </div>
 
             <div class="large-8 medium-8 columns">
-                <h5>Search Results</h5>
+                <h5 class="text_center">Search Results</h5>
                 <div class="callout" id="trailresults">
-
-                    <div class="callout" id="weathercards">
-                            <div class="card future_wx" id="day-0"></div>
-                            <div class="card future_wx" id="day-1"></div>
-                            <div class="card future_wx" id="day-2"></div>
-                            <div class="card future_wx" id="day-3"></div>
-                            <div class="card future_wx" id="day-4"></div>
+                    <!-- Place google maps search results here -->
+                    <div id="pac-card"></div>
+                    <div class="callout">
+                        <div class="row" id="weathercards">
+                            <!-- make the cards appear in rows -->
+                            <div class="card large-2 columns future_wx" id="day-0"></div>
+                            <div class="card large-2 columns future_wx" id="day-1"></div>
+                            <div class="card large-2 columns future_wx" id="day-2"></div>
+                            <div class="card large-2 columns future_wx" id="day-3"></div>
+                            <div class="card large-2 columns future_wx" id="day-4"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="callout" id="starchart">
+                    <!-- integrate the star chart API Search Here -->
                     <h5>The Stars Will Be Awesome</h5>
                     <img src="assets/images/Starsinthesky.jpg" alt="">
                 </div>
@@ -102,16 +105,21 @@
     <div id="dialog-form" title="Trail Search">
         <form>
             <fieldset>
+                <!-- this is where we need to ask for the inputs to our APIs -->
                 <label for="trailname">Trail Name
                     <br>
-                    <input type="text" name="trailname" id="trailname" value="Trail Name"
-                        class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="trailname" id="trailname" placeholder="Trail Name" class="text ui-widget-content ui-corner-all">
                 </label>
                 <br>
                 <label for="location">Location
                     <br>
-                    <input type="text" name="location" id="location" value="City, State"
-                        class="text ui-widget-content ui-corner-all">
+                    <!-- <input type="text" name="location" id="location" placeholder="City, State"
+                        class="text ui-widget-content ui-corner-all"> -->
+         
+                    <input type="text" name="location" id="location" placeholder="City, State" class="text ui-widget-content ui-corner-all" >
+                        <div id="location-error"></div>
+
+                    
                 </label>
                 <!-- Allow form submission with keyboard without duplicating the dialog button -->
                 <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -130,8 +138,8 @@
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
     <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWwWIwnI_m9PhEKgSKFUU5tOC78JfplUk&libraries=places&callback=initMap"
-    async defer></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWwWIwnI_m9PhEKgSKFUU5tOC78JfplUk&libraries=places&callback=initMap"
+        async defer></script>
     <script src="js/app.js"></script>
 </body>
 

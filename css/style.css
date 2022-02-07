@@ -12,6 +12,18 @@ body {
   background-color: tan;
 }
 
-.fx_weather {
+.future_wx {
   background-color: antiquewhite;
+  padding: 5px;
+}
+.heading-pics {
+  height: 100%;
+}
+
+.bottom-border {
+  border-bottom: 2px solid black;
+}
+
+.items-centered {
+  justify-items: right;
 }
