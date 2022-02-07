@@ -37,7 +37,7 @@ $(function () {
 
         t_name = $('#trailname').val();
         t_location = $("#location").val();
-        alert(t_location);
+        console.log(t_location);
         // alert("Trail name to be searched for is: " + t_name);
         // alert("Location to be searched for is: " + t_location);
         if (t_name == 'Trail Name' || t_name == null) {
@@ -47,6 +47,9 @@ $(function () {
         // alert("Trail name to be searched for is: " + t_name);
 
         trail_dialog.dialog("close");
+        //checking to see if they picked a value from the google searh.  also checking to make sure they didnt pcik
+        //a location where openweather wont find such as 'boston common'  If they select a place like that, needs to return
+        //a fill in tip telling them to pick somewhere else and reset the default back to City, State.
         if (t_location != 'City, State') {
             let format_check = t_location.search(",");
             if (format_check === -1) {
@@ -100,10 +103,9 @@ $(function () {
 
 function getWeather(trail_name, t_loc) {
     //first add the city to the search_history)array.  The city always becomes the first in the array, the array is limited to 10 cities, so it
-    //pops the last element in the array if the array length ===10.
-    // debugger;
+    //pops the last element in the array if the array length ===5.
+
     //assign the cityname val to a variable so it can be used in the search_history_array below.  Make first letters capital.
-    // var temp_cityname = city.val();
     var t_loc = t_loc.toLowerCase()
         .split(' ')
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
@@ -160,21 +162,21 @@ function buildHistoryCards(loc_hist_array, trail_hist_array) {
     for (i = 0; i < loc_hist_array.length; i++) {
         search_history_by_location.append('<button type="submit" class="button expanded" id="' + loc_hist_array[i] + '">' + loc_hist_array[i] + '</button>');
         //research the wx from prior searches.
-        $('#' + search_history_by_location[i]).on('click', function (event) {
+        $('#' + loc_hist_array[i]).on('click', function (event) {
             event.preventDefault();
-            let temp_loc = this.id;
-            buildWeatherCards(temp_loc);
+            let t_loc = this.id;
+            buildWeatherCards(t_loc);
         });    
     }
     //only if API supports a lat long for trail location to build wx off trail name
     for (i = 0; i < trail_hist_array.length; i++) {
         search_history_by_trail.append('<button type="submit" class="button" id="' + trail_hist_array[i] + '">' + trail_hist_array[i] + '</button>');
         //research the wx from prior searches.
-        // $('#' + s_history_array[i]).on('click', function (event) {
-        //     event.preventDefault();
-        //     let temp_city_n = this.id;
-        //     buildWeatherCards(temp_city_n);
-        // });    
+        $('body').on('click', '#' + trail_hist_array[i], function (event) {
+            event.preventDefault();
+            let trail_loc = this.id;
+            buildWeatherCards(trail_loc);
+        });    
     }
 }
 
@@ -297,5 +299,5 @@ function initMap() {
     });
 }
 
-initMap();
 initializePage();
+// initMap();
