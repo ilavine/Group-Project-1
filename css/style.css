@@ -27,3 +27,8 @@ body {
 .items-centered {
   justify-items: right;
 }
+
+.accordion-title{
+  background-color: grey;
+  color: white;
+}

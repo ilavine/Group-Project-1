@@ -8,8 +8,10 @@ var search_history_by_trail = $('#trail-search-history');
 var wx_cards = ('#weathercards');
 const api_key = 'a927e5d1a4f226a1efed57b2a089721b';
 var clear_btn = $('#clear_hist_btn');
+var accordion_list = $('#accordion');
 
-// $(document).foundation()
+$(document).foundation();
+
 // const hash = btoa(`${applicationId}:${applicationSecret}`);
 // Application ID:
 // 570c18ee-252e-4e18-a721-e8624c977166
@@ -23,6 +25,25 @@ clear_btn.on('click', function () {
     initializePage();
 })
 
+
+{/* <li class="accordion-item is-active" data-accordion-item>
+<!-- Accordion tab title -->
+<a href="#" class="accordion-title">Accordion 1</a>
+
+<!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
+<div class="accordion-content" data-tab-content>
+    <p>Panel 1. Lorem ipsum dolor</p>
+    <a href="#">Nowhere to Go</a>
+</div>
+</li> */}
+
+function buildAccordion() {
+    for (i = 0; i < 5; i++) { }
+        debugger;
+        accordion_list.append('<li class="accordion-item" data-accordion-item> <a href="#" class="accordion-title">Hi ' + i + '</a> <div class="accordion-content" data-tab-content id="li-content-' + i + '"> <p> ' + i + '. Placeholder</p> <a href="#">Nowhere to Go</a> </div> </li>');
+}
+
+
 $(function () {
     var trail_dialog;
     var trail_name_form;
@@ -35,8 +56,13 @@ $(function () {
         var t_name;
         var t_location;
 
+        //IMPORTANT:  You need to get the values, THEN clear them back to the placeholder.
         t_name = $('#trailname').val();
         t_location = $("#location").val();
+
+        //Now that you've gotten the values and used them to search, now we clear them and revert back to the placeholder.
+        $('#trailname').val("");
+        $('#location').val("");
         console.log(t_location);
         // alert("Trail name to be searched for is: " + t_name);
         // alert("Location to be searched for is: " + t_location);
@@ -103,13 +129,7 @@ $(function () {
 
 function getWeather(trail_name, t_loc) {
     //first add the city to the search_history)array.  The city always becomes the first in the array, the array is limited to 10 cities, so it
-    //pops the last element in the array if the array length ===5.
-
-    //assign the cityname val to a variable so it can be used in the search_history_array below.  Make first letters capital.
-    var t_loc = t_loc.toLowerCase()
-        .split(' ')
-        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-        .join(' ');
+    //pops the last element in the array if the array length ===5
 
     let poss_check = false;
 
@@ -145,6 +165,7 @@ function getWeather(trail_name, t_loc) {
 function initializePage() {
     //initializes the page showing past search history
     // debugger;
+
     $('#trailname').val("");
     $('#location').val("");
     let temp_loc_search_array = JSON.parse(localStorage.getItem('locationsearchhistoryarray'));
@@ -152,6 +173,8 @@ function initializePage() {
     loc_search_history_array = temp_loc_search_array || [];
     trail_search_history_array = temp_trail_search_array || [];
 
+    //build the accordion
+    buildAccordion();
     //rebuild the search history cards
     buildHistoryCards(loc_search_history_array, trail_search_history_array);
 }
@@ -205,7 +228,7 @@ function buildWeatherCards(t_loc) {
             latitude = data[0].lat;
             longitude = data[0].lon;
             var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=imperial&appid=' + api_key;
-            console.log('one call url: ' +url);
+            console.log('one call url: ' + url);
             //executes a fetch from openweathermap.org.  API key is sdseney508 key and is stored as a const
             fetch(url, {
                 cache: 'reload',
@@ -228,9 +251,9 @@ function buildWeatherCards(t_loc) {
                     for (i = 0; i < 5; i++) {
                         //change to jday
 
-                        let wx_numb = parseFloat(data.daily[i].dt*1000);
+                        let wx_numb = parseFloat(data.daily[i].dt * 1000);
                         var wx_date = dayjs(wx_numb).format('MMMM D, YYYY')
-                       
+
                         var temp_hi = data.daily[i].temp.max;
                         var temp_low = data.daily[i].temp.min;
                         var winds = data.daily[i].wind_speed;
