@@ -1,13 +1,16 @@
-# Group-Project-1
-Marissa attempt 1
+# Group-Project-1 Description
 
-Yulia's change!
-
-Following the group collaboration instructions.
-# Hiking application
+## The requirements for the project were as following:
+* Non-Bootstrap CSS Framework - Our group used Foundation 6 CSS Framework.
+* Be deployed to GitHub Pages - The project can be viewed [here](placehodler).
+* Be interactive and responsive - Our group utilized jQuery and jQuery UI widgets to enhance the user experience.
+* Use at least two separate APIs - Our group implemented Google Maps API, Open Weather API, Hiking Trails API, and Constallation Map API
+* Does not use alerts, confirms, or prompts (use modals) - jQuery UI Dialogue modal was used for user interface.
+* Use client-side storage to store persistent data - The webapp uses client-side storage to store past searches and preferences. 
 
 # User Story
-	As a TOURIST I want to be able to find hiking locations based on my unique search criteria so that i can be an informed hiker for my desired trip.
+	AS A TOURIST I want to be able to find hiking locations based on my unique search criteria 
+	SO THAT I can be an informed hiker for my desired trip.
 
 # Acceptance Criteria
 	GIVEN a top level search page for hiking information about a given area:
@@ -23,22 +26,13 @@ Following the group collaboration instructions.
 	
 	WHEN I enter a trip date and location
 	THEN I am shown a map of what constellations and planets should be visible.
-	
-# Features
-Added features
 
-<!-- fetch request function -->
-<!-- var requestUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/output?parameters";
+# MVP
+* Search Function - A user should be able to type in a location in the autocomplete input form, THEN I am given a search result displayed as a marker on the Google Map.
+* Weather Dashboard - Once the Google Maps result is displayed on the page, a user is provided with information about the weather conditions in tabular form.
+* Hiking Trail Info - A user is provided with a hiking trail info in the specified area.
+* Constellation Map - Constellation map is displayed on the screen.
 
-function getApi() {
-    fetch(requestUrl)
-        .then(function(response) {
-            console.log(response);
-            return response.json();
-        })
-        .then(function(data) {
-            console.log(data);
-        })
-} -->
-
-<!-- Please work -->
+# Future Development Features (Icebox)
+* Provide a functionality to sort trails by the level of difficulty.
+* Using Google Maps API, display supply stores on the Google Map.
