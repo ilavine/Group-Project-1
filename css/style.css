@@ -13,8 +13,11 @@ body {
 }
 
 .future_wx {
-  background-color: rgb(85, 45, 230);
-  padding: 5px;
+  background-color: rgb(67, 50, 128);
+  color: white;
+  padding: .25rem;
+  margin: .75rem;
+  height: 15rem;
 }
 .heading-pics {
   height: 100%;

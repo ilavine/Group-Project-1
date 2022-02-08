@@ -62,6 +62,8 @@ async function sendApiRequest(starView) {
 }
 
 // Function that does something with the data that was received from the API
+var geoLockApi = "1fc359ee9b12b02ee9633470d8821b6b"
+var TrailApi = "7489fefcc1msh0d1a721295405aap1c88b1jsn7daf4e11d73a"
 function useApiData(data) {
     const image = $("<img/>");
     image.attr("src", data.imageUrl);
@@ -69,8 +71,6 @@ function useApiData(data) {
 }
 
 // Function that calls info for hiking trails based on location
-var geoLockApi = "1fc359ee9b12b02ee9633470d8821b6b"
-var TrailApi = "7489fefcc1msh0d1a721295405aap1c88b1jsn7daf4e11d73a"
 function ApiGet() {
     hikeTrail = $("#searchTerm").val();
     console.log(hikeTrail)
@@ -87,7 +87,7 @@ function ApiGet() {
         lon = data[0].lon;
         targetDate = "2022-02-07"
         let starSearch = {
-            "style": "inverted",
+            "style": "navy",
             "observer": {
                 "latitude": lat,
                 "longitude": lon,
