@@ -1,3 +1,6 @@
+var hikeTrail = $("#searchTerm").val();
+var searchButton = document.querySelector("#search");
+const $content = $("#content");
 
 
 
@@ -30,11 +33,9 @@
 
 
 // </html>
+
 // searchBtn.addEventListener('click', ApiGet);
 
-var location = document.getElementById("location");
-var searchButton = document.querySelector("#search");
-const $content = $("#content");
 
 searchButton.addEventListener("click", () => {
     console.log("button pressed");
@@ -68,11 +69,13 @@ function useApiData(data) {
 }
 
 // Function that calls info for hiking trails based on location
-var GeoLockApi = "1fc359ee9b12b02ee9633470d8821b6b"
+var geoLockApi = "1fc359ee9b12b02ee9633470d8821b6b"
 var TrailApi = "7489fefcc1msh0d1a721295405aap1c88b1jsn7daf4e11d73a"
 function ApiGet() {
-    var GeoLockUrl = "https://api.openweathermap.org/geo/1.0/direct?q="+location+"&limit=5&appid="+GeoLockApi;
-    fetch(GeoLockUrl)
+    console.log(hikeTrail)
+    var geoLockUrl = "https://api.openweathermap.org/geo/1.0/direct?q="+ hikeTrail +"&limit=5&appid="+ geoLockApi;
+    console.log(geoLockUrl)
+    fetch(geoLockUrl)
     .then(function(response) {
         console.log(response);
         return response.json()
