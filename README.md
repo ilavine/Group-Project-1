@@ -28,7 +28,7 @@
 	THEN I am shown a map of what constellations and planets should be visible.
 
 # MVP
-* Search Function - A user should be able to type in a location in the autocomplete input form, THEN I am given a search result displayed as a marker on the Google Map.
+* Search Function - A user should be able to type in a location in the autocomplete input form, a search result displayed as a marker on the Google Map.
 * Weather Dashboard - Once the Google Maps result is displayed on the page, a user is provided with information about the weather conditions in tabular form.
 * Hiking Trail Info - A user is provided with a hiking trail info in the specified area.
 * Constellation Map - Constellation map is displayed on the screen.
