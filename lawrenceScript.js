@@ -1,4 +1,4 @@
-var hikeTrail = $("#searchTerm").val();
+var hikeTrail;
 var searchButton = document.querySelector("#search");
 const $content = $("#content");
 
@@ -72,6 +72,7 @@ function useApiData(data) {
 var geoLockApi = "1fc359ee9b12b02ee9633470d8821b6b"
 var TrailApi = "7489fefcc1msh0d1a721295405aap1c88b1jsn7daf4e11d73a"
 function ApiGet() {
+    hikeTrail = $("#searchTerm").val();
     console.log(hikeTrail)
     var geoLockUrl = "https://api.openweathermap.org/geo/1.0/direct?q="+ hikeTrail +"&limit=5&appid="+ geoLockApi;
     console.log(geoLockUrl)
@@ -82,8 +83,8 @@ function ApiGet() {
     })
     .then(function(data) {
         console.log(data);
-        lat = data.lat;
-        lon = data.lon;
+        lat = data[0].lat;
+        lon = data[0].lon;
         targetDate = "2022-02-07"
         let starSearch = {
             "style": "inverted",
