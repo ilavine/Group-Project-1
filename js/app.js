@@ -1,14 +1,22 @@
 
 //variables required
+var hikeTrail;
+var searchButton = document.querySelector("#search");
+const $content = $("#starchart");
 var search_history = $('#search-history'); // looks for the div id search history.
 var loc_search_history_array = [];
 var trail_search_history_array = [];
 var search_history_by_location = $('#location-search-history');
 var search_history_by_trail = $('#trail-search-history');
-var wx_cards = ('#weathercards');
+var wx_cards = $('#weathercards');
 const api_key = 'a927e5d1a4f226a1efed57b2a089721b';
 var clear_btn = $('#clear_hist_btn');
 var accordion_list = $('#accordion');
+var latitude;
+var longitude;
+var t_place;
+var geoLockApi = "1fc359ee9b12b02ee9633470d8821b6b"
+var TrailApi = "7489fefcc1msh0d1a721295405aap1c88b1jsn7daf4e11d73a"
 
 $(document).foundation();
 
@@ -24,25 +32,6 @@ clear_btn.on('click', function () {
     localStorage.clear();
     initializePage();
 })
-
-
-{/* <li class="accordion-item is-active" data-accordion-item>
-<!-- Accordion tab title -->
-<a href="#" class="accordion-title">Accordion 1</a>
-
-<!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
-<div class="accordion-content" data-tab-content>
-    <p>Panel 1. Lorem ipsum dolor</p>
-    <a href="#">Nowhere to Go</a>
-</div>
-</li> */}
-
-function buildAccordion() {
-    for (i = 0; i < 5; i++) { }
-        debugger;
-        accordion_list.append('<li class="accordion-item" data-accordion-item> <a href="#" class="accordion-title">Hi ' + i + '</a> <div class="accordion-content" data-tab-content id="li-content-' + i + '"> <p> ' + i + '. Placeholder</p> <a href="#">Nowhere to Go</a> </div> </li>');
-}
-
 
 $(function () {
     var trail_dialog;
@@ -63,38 +52,34 @@ $(function () {
         //Now that you've gotten the values and used them to search, now we clear them and revert back to the placeholder.
         $('#trailname').val("");
         $('#location').val("");
-        console.log(t_location);
-        // alert("Trail name to be searched for is: " + t_name);
-        // alert("Location to be searched for is: " + t_location);
+
         if (t_name == 'Trail Name' || t_name == null) {
             t_name = 'NA';
         }
 
-        // alert("Trail name to be searched for is: " + t_name);
-
         trail_dialog.dialog("close");
-        //checking to see if they picked a value from the google searh.  also checking to make sure they didnt pcik
-        //a location where openweather wont find such as 'boston common'  If they select a place like that, needs to return
-        //a fill in tip telling them to pick somewhere else and reset the default back to City, State.
-        if (t_location != 'City, State') {
-            let format_check = t_location.search(",");
-            if (format_check === -1) {
-                // alert('The search location must be in City, State format.  Please Try again.');
-                return;
-            }
+        // //checking to see if they picked a value from the google searh.  also checking to make sure they didnt pcik
+        // //a location where openweather wont find such as 'boston common'  If they select a place like that, needs to return
+        // //a fill in tip telling them to pick somewhere else and reset the default back to City, State.
+        // if (t_location != 'City, State') {
+        //     let format_check = t_location.search(",");
+        //     if (format_check === -1) {
+        //         // alert('The search location must be in City, State format.  Please Try again.');
+        //         return;
+        //     }
 
-            let loc_array = t_location.split(",");
-            //trimmming off the , USA from the results so it works for openweather geo api
+        //     let loc_array = t_location.split(",");
+        //     //trimmming off the , USA from the results so it works for openweather geo api
 
-            if (loc_array.length > 2) {
-                loc_array.pop();
-            }
-            for (i = 0; i < loc_array.length; i++) {
-                loc_array[i] = loc_array[i].trimStart();
-            }
-            t_location = loc_array.join();
-            console.log('this is t_loc in the search function: ' + t_location);
-        }
+        //     if (loc_array.length > 2) {
+        //         loc_array.pop();
+        //     }
+        //     for (i = 0; i < loc_array.length; i++) {
+        //         loc_array[i] = loc_array[i].trimStart();
+        //     }
+        //     t_location = loc_array.join();
+        //     console.log('this is t_loc in the search function: ' + t_location);
+        // }
         getWeather(t_name, t_location);
         //now cycle through the search_history_array and create a research button for each prior searched city name.
         //right now trail_search_hisotry_array is null and just a place holder, we still need to see if the API lets you search by Trail name.
@@ -173,8 +158,6 @@ function initializePage() {
     loc_search_history_array = temp_loc_search_array || [];
     trail_search_history_array = temp_trail_search_array || [];
 
-    //build the accordion
-    buildAccordion();
     //rebuild the search history cards
     buildHistoryCards(loc_search_history_array, trail_search_history_array);
 }
@@ -182,34 +165,15 @@ function initializePage() {
 function buildHistoryCards(loc_hist_array, trail_hist_array) {
     search_history_by_location.empty();
     search_history_by_trail.empty();
-    // debugger;
     for (i = 0; i < loc_hist_array.length; i++) {
         search_history_by_location.append('<button type="submit" class="button expanded historybutton" id="' + loc_hist_array[i] + '">' + loc_hist_array[i] + '</button>');
-        //research the wx from prior searches.
-        // $('#' + loc_hist_array[i]).on('click', function (event) {
-        //     event.preventDefault();
-        //     let t_loc = this.id;
-        //     buildWeatherCards(t_loc);
-        // });    
     }
-    //only if API supports a lat long for trail location to build wx off trail name
-    // for (i = 0; i < trail_hist_array.length; i++) {
-    //     search_history_by_trail.append('<button type="submit" class="button" id="' + trail_hist_array[i] + '">' + trail_hist_array[i] + '</button>');
-    //     //research the wx from prior searches.
-    //     $('body').on('click', '#' + trail_hist_array[i], function (event) {
-    //         event.preventDefault();
-    //         let trail_loc = this.id;
-    //         buildWeatherCards(trail_loc);
-    //     });    
-    // }
+
 }
 
 function buildWeatherCards(t_loc) {
     //clear out old cards and info
-    // wx_cards.empty();
-    var latitude;
-    var longitude;
-
+    wx_cards.empty();
     var geo_url = 'https://api.openweathermap.org/geo/1.0/direct?q=' + t_loc + ',US&appid=' + api_key;
     console.log(geo_url);
     fetch(geo_url, {
@@ -228,7 +192,9 @@ function buildWeatherCards(t_loc) {
             latitude = data[0].lat;
             longitude = data[0].lon;
             var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&units=imperial&appid=' + api_key;
-            console.log('one call url: ' + url);
+            t_place = { lat: latitude, lng: longitude };
+            console.log(t_place);
+            initMap(t_place);
             //executes a fetch from openweathermap.org.  API key is sdseney508 key and is stored as a const
             fetch(url, {
                 cache: 'reload',
@@ -250,7 +216,6 @@ function buildWeatherCards(t_loc) {
                     //build a for loop to extract the data for the current day (list item 0) and the next 5 days, list 1-5.
                     for (i = 0; i < 5; i++) {
                         //change to jday
-
                         let wx_numb = parseFloat(data.daily[i].dt * 1000);
                         var wx_date = dayjs(wx_numb).format('MMMM D, YYYY')
 
@@ -260,6 +225,7 @@ function buildWeatherCards(t_loc) {
                         var humidity = data.daily[i].humidity;
 
                         let day_id = i;
+                        wx_cards.append('<div class="columns card large-2 medium-3 future_wx" id="day-' + i + '"></div>')
                         let future_wx_cards = $('#day-' + i);
                         // clear prior search results
                         future_wx_cards.empty();
@@ -274,21 +240,78 @@ function buildWeatherCards(t_loc) {
                         future_wx_cards.append('<div>Humidity: ' + humidity + ' %</div>');
                     }
                 })
+            targetDate = dayjs().format('YYYY-MM-DD')  //originally this was"2022-02-07"
+            console.log(targetDate);
+            let starSearch = {
+                "style": "navy",
+                "observer": {
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "date": targetDate
+                },
+                "view": {
+                    "type": "constellation",
+                    "parameters": {
+                        "constellation": "ori"
+                    }
+                }
+            }
+            sendApiRequest(starSearch);
+            fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=" + latitude + "&lon=" + longitude,
+                {
+                    method: "GET",
+                    headers: {
+                        "x-rapidapi-host": "trailapi-trailapi.p.rapidapi.com",
+                        "x-rapidapi-key": TrailApi
+                    }
+                })
+                .then(function (response) {
+                    console.log(response);
+                    return response.json()
+                })
+                .catch(function (err) {
+                    console.error(err);
+                })
+                .then(function (data) {
+                    console.log('this is from thje trailapi:');
+                    console.log(data);
+                    console.log(object.data[0].name);
+                    //and now we build out the accordion for the trails with links to their info
+                    for (i = 0; i < 5; i++) {
+                        let card_title = $('#acc-' + i + '-title');
+                        let card_content = $('#acc-' + i + '-content');
+                        let card_link = $('#acc-' + i + '-link');
+                        //empty from prior searches
+                        card_title.empty();
+                        card_content.empty();
+                        card_link.empty();
+                        //now get values and put them into the cards
+                        let title = data[0].name;
+                        let hyp_link = data[0].url;
+                        card_link.attr("href", hyp_link);
+                        card_link.innerHTML(title);
+                        card_title.innerHTML(title);
+                    }
+                })
+
         });
 }
 
 // Initialize and add the map
-function initMap() {
+function initMap(t_place) {
     // The location of Concord, NH
     const concord = { lat: 43.1939, lng: -71.5724 };
     // The map, centered at Concord, NH
+    if (t_place == null) {
+        t_place = concord;
+    }
     const map = new google.maps.Map(document.getElementById("trailresults"), {
         zoom: 10,
-        center: concord,
+        center: t_place,
     });
     // The marker, positioned at Concord, NH
     const marker = new google.maps.Marker({
-        position: concord,
+        position: t_place,
         map: map,
     });
     var card = document.getElementById('pac-card');
@@ -332,13 +355,101 @@ function initMap() {
     });
 }
 
-initializePage();
-// initMap();
+
 
 $('body').on('click', '.historybutton', function (event) {
     event.preventDefault();
-    console.log('i hate this');
     let trail_loc = this.id;
     console.log(trail_loc);
     buildWeatherCards(trail_loc);
-});    
+});
+
+
+// searchButton.addEventListener("click", () => {
+//     console.log("button pressed");
+//     // sendApiRequest(starSearch)
+//     ApiGet()
+// })
+
+// function ApiGet() {
+//     hikeTrail = $("#searchTerm").val();
+//     console.log(hikeTrail)
+//     var geoLockUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + hikeTrail + "&limit=5&appid=" + geoLockApi;
+//     console.log(geoLockUrl)
+//     fetch(geoLockUrl)
+//         .then(function (response) {
+//             console.log(response);
+//             return response.json()
+//         })
+//         .then(function (data) {
+//             console.log(data);
+//             lat = data[0].lat;
+//             lon = data[0].lon;
+//             targetDate = dayjs().format('YYYY-MM-DD')  //originally this was"2022-02-07"
+//             console.log(targetDate);
+//             let starSearch = {
+//                 "style": "inverted",
+//                 "observer": {
+//                     "latitude": lat,
+//                     "longitude": lon,
+//                     "date": targetDate
+//                 },
+//                 "view": {
+//                     "type": "constellation",
+//                     "parameters": {
+//                         "constellation": "ori"
+//                     }
+//                 }
+//             }
+//             sendApiRequest(starSearch);
+//             fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lat=" + lat + "&lon=" + lon,
+//                 {
+//                     method: "GET",
+//                     headers: {
+//                         "x-rapidapi-host": "trailapi-trailapi.p.rapidapi.com",
+//                         "x-rapidapi-key": TrailApi
+//                     }
+//                 })
+//                 .then(function (response) {
+//                     console.log(response);
+//                     return response.json()
+//                 })
+//                 .catch(function (err) {
+//                     console.error(err);
+//                 })
+//                 .then(function (data) {
+//                     console.log(data);
+//                 })
+//         })
+// }
+
+//An asyncronous function to fetch data from the API
+async function sendApiRequest(starView) {
+    let applicationId = "570c18ee-252e-4e18-a721-e8624c977166"
+    let applicationSecret = "8a10ea4475bc233d87c49f1e0092f9f848b4c8283f95afc5961bd6d2b8123f4b56755ef5498ce5c739bc7652fba958b32b9e3048e673f9f405538b3d0473e5bfde67db26603d4e83558cc306b9829eab2eca0177bebb028d99163d6719008cc734c11e8b2e7cdbdd6e8ba5984c4d314e"
+    const hash = btoa(`${applicationId}:${applicationSecret}`);
+    let response = await fetch(`https://api.astronomyapi.com/api/v2/studio/star-chart`, {
+        method: "POST",
+        headers: {
+            Authorization: "Basic " + hash
+        }, body: JSON.stringify(starView)
+    });
+
+    console.log(response);
+    let data = await response.json()
+    console.log(data)
+    useApiData(data.data)
+}
+
+// Function that does something with the data that was received from the API
+function useApiData(data) {
+    const image = $("<img/>");
+    image.attr("src", data.imageUrl);
+    $content.append(image);
+}
+
+// Function that calls info for hiking trails based on location
+
+
+initializePage();
+// initMap();
