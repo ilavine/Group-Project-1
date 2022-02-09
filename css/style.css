@@ -8,6 +8,10 @@ body {
   text-align: center;
 }
 
+.text_left{
+  text-align: left;
+}
+
 .trail-search {
   background-color: tan;
 }
@@ -17,7 +21,7 @@ body {
   color: white;
   padding: .25rem;
   margin: .75rem;
-  height: 15rem;
+  height: 17rem;
 }
 .heading-pics {
   height: 100%;
