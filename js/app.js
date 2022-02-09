@@ -378,6 +378,7 @@ async function sendApiRequest(starView) {
     let data = await response.json()
     console.log(data)
     useApiData(data.data)
+    $('#loader').addClass("hide-loader");
 }
 
 // Function that does something with the data that was received from the API
