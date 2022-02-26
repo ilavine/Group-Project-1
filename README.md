@@ -2,7 +2,7 @@
 
 ## The requirements for the project were as following:
 * Non-Bootstrap CSS Framework - Our group used Foundation 6 CSS Framework.
-* Be deployed to GitHub Pages - The project can be viewed [here](https://sdseney508.github.io/Group-Project-1/).
+* Be deployed to GitHub Pages - The project can be viewed [here](https://sdseney508.github.io/Trail-Finder/).
 * Be interactive and responsive - Our group utilized jQuery and jQuery UI widgets to enhance the user experience.
 * Use at least two separate APIs - Our group implemented Open Weather Map API, Trail API, Google Maps API, and Astronomy API
 * Does not use alerts, confirms, or prompts (use modals) - jQuery UI Dialogue modal was used for user interface.
