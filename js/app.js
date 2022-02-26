@@ -221,7 +221,9 @@ function buildEverything(t_loc) {
                         var humidity = data.daily[i].humidity;
 
                         let day_id = i;
-                        wx_cards.append('<div class="columns card large-2 medium-3 future_wx" id="day-' + i + '"></div>')
+                        wx_cards.append('<div class="column" id="i-hate-css-' + i + '"></div>');
+                        let wx_cards2 = $('#i-hate-css-' + i);
+                        wx_cards2.append('<div class="card future_wx" id="day-' + i + '"></div>');
                         let future_wx_cards = $('#day-' + i);
                         // clear prior search results
                         future_wx_cards.empty();
@@ -283,7 +285,7 @@ function buildEverything(t_loc) {
                     //and now we build out the accordion for the trails with links to their info
                     for (i = 0; i < 5; i++) {
                         // debugger;
-                        let card_title = $('#acc-' + i + '-content-label');
+                        let card_title = $('#acc-' + i + '-title');
                         let card_content = $('#acc-' + i + '-content');
                         let card_link = $('#acc-' + i + '-link');
                         console.log(card_link);
@@ -294,6 +296,7 @@ function buildEverything(t_loc) {
                         //now get values and put them into the cards
                         let title = data.data[i].name;
                         let content = data.data[i].description;
+                        console.log(content);
                         let hyp_link = data.data[i].url;
                         card_link.attr("href", hyp_link);
                         card_link.html(title);
