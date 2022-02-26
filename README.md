@@ -1,4 +1,5 @@
-# Group-Project-1 Description
+# Trail Finder
+![image](https://user-images.githubusercontent.com/62141103/155856906-b3f66bbf-3152-4eca-a833-b19e7d0b438f.png)
 
 ## The requirements for the project were as following:
 * Non-Bootstrap CSS Framework - Our group used Foundation 6 CSS Framework.
